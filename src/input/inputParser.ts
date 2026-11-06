@@ -31,12 +31,12 @@ export function parsePlateauSize(rawSize: string): PlateauSize {
     let numList: number[] = []
 
     if (splitSize.length !== 2) {
-        throw new Error('Invalid XY input');
+        throw new Error('Invalid plateau size');
     }
 
     for (let num of splitSize) {
         const n = Number(num);
-        if (!Number.isInteger(n)) {
+        if (!Number.isInteger(n) || n < 0) {
             throw new Error ('Invalid size input');
         } else {
             numList.push(n)
@@ -46,4 +46,26 @@ export function parsePlateauSize(rawSize: string): PlateauSize {
 }
 
 export function parsePosition(rawPosition: string): Position {
+    let splitPosition = rawPosition.split(" ");
+    const [rawX, rawY, rawFacing] = splitPosition;
+    let positionList: number[] = [];
+
+    if (splitPosition.length !== 3) {
+        throw new Error('Invalid position');
+    }
+
+    for (let num of splitPosition.slice(0, 2)) {
+        const n = Number(num);
+        if (!Number.isInteger(n) || n < 0) {
+            throw new Error ('Invalid position');
+        } else {
+            positionList.push(n);
+        }
+    }
+
+    if (!isDirection(rawFacing)) {
+        throw new Error ('Invalid direction');
+    }
+
+    return {x: positionList[0], y: positionList[1], facing: rawFacing}
 }

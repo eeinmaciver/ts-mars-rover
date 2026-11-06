@@ -1,7 +1,6 @@
 import { describe, test, expect } from "vitest";
-import { parseInstructions, parsePlateauSize, isInstruction, isDirection } from "../src/input/inputParser";
+import { parseInstructions, parsePlateauSize, parsePosition, isInstruction, isDirection } from "../src/input/inputParser";
 
-// test isInstruction with true and false values
 describe("isInstruction", () => {
     test("return true for valid instruction", () => {
         expect(isInstruction("L")).toBe(true);
@@ -12,7 +11,6 @@ describe("isInstruction", () => {
     })
 });
 
-// test isDirection with true and false values
 describe("isDirection", () => {
     test("return true for valid direction", () => {
         expect(isDirection("N")).toBe(true);
@@ -23,7 +21,6 @@ describe("isDirection", () => {
     });
 });
 
-// test parseInstructions with valid array and throw error if invalid
 describe("parseInstructions", () => {
     test("convert valid instructions into array", () => {
         expect(parseInstructions("LMR")).toEqual(["L", "M", "R"]);
@@ -34,7 +31,6 @@ describe("parseInstructions", () => {
     });
 });
 
-// test parsePlateauSize with valid and invalid inputs
 describe("parsePlateauSize", () =>{
     test("convert valid string into PlateauSize", () => {
         expect(parsePlateauSize("5 5")).toEqual({x:5, y:5});
@@ -46,5 +42,19 @@ describe("parsePlateauSize", () =>{
 
     test("throw error if input is not 2 values", () => {
         expect(() => parsePlateauSize("5")).toThrow();
+    });    
+});
+
+describe("parsePosition", () =>{
+    test("convert valid string into Position", () => {
+        expect(parsePosition("1 2 N")).toEqual({x:1, y:2, facing:"N"});
+    });
+  
+    test("throw error if direction invalid", () => {
+        expect(() => parsePosition("banana 5")).toThrow();
+    });
+
+    test("throw error if a coordinate is not a number", () => {
+        expect(() => parsePosition("1 X N")).toThrow();
     });    
 });
