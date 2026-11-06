@@ -26,10 +26,24 @@ export function parseInstructions(rawInstructions: string): Instruction[] {
     return result;
 }
 
+export function parsePlateauSize(rawSize: string): PlateauSize {
+    let splitSize = rawSize.split(" ");
+    let numList: number[] = []
 
+    if (splitSize.length !== 2) {
+        throw new Error('Invalid XY input');
+    }
 
-// export function parsePlateauSize(rawSize: string): PlateauSize {
-// }
+    for (let num of splitSize) {
+        const n = Number(num);
+        if (!Number.isInteger(n)) {
+            throw new Error ('Invalid size input');
+        } else {
+            numList.push(n)
+        }
+    }
+    return {x: numList[0] ,y: numList[1]};
+}
 
-// export function parsePosition(rawPosition: string): Position {
-// }
+export function parsePosition(rawPosition: string): Position {
+}
