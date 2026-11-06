@@ -43,4 +43,8 @@ describe("parsePlateauSize", () =>{
     test("throw error if invalid", () => {
         expect(() => parsePlateauSize("banana 5")).toThrow();
     });
+
+    test("throw error if input is not 2 values", () => {
+        expect(() => parsePlateauSize("5")).toThrow();
+    });    
 });
